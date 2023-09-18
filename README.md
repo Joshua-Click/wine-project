@@ -11,9 +11,9 @@
 
 ### Initial hypotheses
 
-- Split into different counties since location could be a big factor in home value
-- Finished sqft and amount of bedrooms will make a difference in price
-- Look into bathrooms as well
+- Amount of Alcohol present determines the quality?
+- 
+- 
 
 ### Acquire: 
 - Acquire the data from Data.World as CSVs
@@ -38,26 +38,28 @@
 
 | Feature | Definition |
 |--------|-----------|
-|Bedrooms| Number of Bedrooms|
-|Bathrooms| Number of Bathrooms|
-|Finished Area| Usable Square Footage of Home|
-|Home Value| Price of Home|
-|Year Built| Year house was built|
-|Lot Area| Square Footage of the entire property lot|
-|County| County location of home|
-|Garage Fits| Number of Cars that Fit in Garage|
-|Garage Area| Square Footage of the Garage|
-|Transaction Date| Last time the house was sold in 2017|
-
+|Fixed Acidity| Number of Bedrooms|
+|Volatile Acidity| Number of Bathrooms|
+|Citric Acid| Usable Square Footage of Home|
+|Residual Sugar| Price of Home|
+|Chlorides| Year house was built|
+|Free Sulfur Dioxide| Square Footage of the entire property lot|
+|Total Sulfur Dioxide| County location of home|
+|Density| Number of Cars that Fit in Garage|
+|pH| Square Footage of the Garage|
+|Sulphates| Last time the house was sold in 2017|
+|Alcohol| Number of Cars that Fit in Garage|
+|Quality| Square Footage of the Garage|
+|Color Type| Last time the house was sold in 2017|
 
 ### How to Reproduce
 - Clone this repo
-- Acquire data from MySql (Should make a zillow.csv after)
+- Acquire data https://data.world/food/wine-quality
 - Run Notebook
 
 ### Key findings 
-- Bedrooms, Bathrooms, and Finished_area were the best features to use. Garages did not make the cut due to too much missing data and too many assumptions.
-- Model 4, Polynomial Regression with a degree of 3 worked best.
+- 
+- 
 
 ### Takeaways and Conclusions
 - After running scaled data through the model
