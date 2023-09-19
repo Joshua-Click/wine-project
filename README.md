@@ -2,18 +2,14 @@
 
 - To predict the quality of wine while incorporating unsupervised learning techniques. 
 
-
 ### Project description
 
-- I've been tasked to find drivers of wine quality for the California Wine Institute. 
-
-### The Plan 
+- We've been tasked to find drivers of wine quality for the California Wine Institute. 
 
 ### Initial hypotheses
 
 - Amount of Alcohol present determines the quality
-- 
-- 
+- Red wines are better quality than White wines
 
 ### Acquire: 
 - Acquire the data from Data.World as CSVs
@@ -22,26 +18,33 @@
 
 ### Prepare
 
+- Combined red and white csv's into one csv
+- Shape after Merge: 6497 Rows, 13 Columns
+- Null Check: No Null Values
+- Created is_red column for feature engineering in modeling 
 
 ### Explore: 
 
-- QUESTIONS OF THE DATA
-- 
-- 
-- What are the features that have the highest effect on the Quality of wine?
+**QUESTIONS OF THE DATA**
+
+- **What are the features that have the highest effect on the Quality of wine?**
+
     - 1: Alcohol
-    - 2: Free Sulfur Dioxide
-    - 3: Total Sulfur Dioxide
-- What are the features that have the least effect?
+    - 2: Citric Acid
+    - 3: i_red
+    - 4: Volitile Acidity
+
+- **What are the features that have the least effect?**
+
     - 1: Fixed Acididty
-    - 2: Volatile Acidity
-    - 3: Citric Acid
-    - 4: Residual Sugar
-    - 5: Chlorides
-    - 6: Density
-    - 7: pH
-    - 8: Sulphates
-- How do these features stand up to the Mann-Whitney TTest?
+    - 2: Citric Acid
+    - 3: Residual Sugar
+    - 4: Chlorides
+    - 5: Density
+    - 6: pH
+    - 7: Sulphates
+
+- **How do all of these features stand up to the Mann-Whitney TTest?**
 
 |feature_vs_quality	| test_statistic | p_value |
 |------------|---------------|------------|
@@ -59,7 +62,12 @@
 | quality | 7593304.5 | 1.000000e+00 |
 | is_red | 15186609.0 | 0.000000e+00 |
 
+- **What does the KMeans test give us?**
+
+    - 
+
 ### Modeling: 
+
 - Use drivers in explore to build predictive models of different types
 - Evaluate models on train and validate data
 - Select the best model based on accuracy
@@ -86,18 +94,24 @@
 
 ### How to Reproduce
 - Clone this repo
-- Acquire data https://data.world/food/wine-quality
+- Acquire data https://data.world/food/wine-quality 
+- Save both csv's into same folder
 - Run Notebook
 
 ### Key findings 
-- 
-- 
+
 
 ### Takeaways and Conclusions
-- After running scaled data through the model
-- Test data ran on Model 4
-    - 39.7% accuracy overall
-- Still quite low and only within 338k of the correct home value price which is alot of error.
+- Ended up using all features to predict quality in wines.
+- After running 648 Models with various iterations and scalers we determined that Model Indexed 528 performed in our opinion the best.
+- Hyperparameters: 
+    - n_estimators = 200
+    - max_depth = 6
+    - min_samples_split = 10
+    - min_samples_leaf = 1
+- Model 528 Random Forest output train accuracy of .62 and validate accuracy of .57
+- Test Data Ran through Model 528 Returned a Test Accuracy of .56
+
 ### Recommendations
-- Recommend splitting data into counties and adding more features to the data collected in order to potentially predict Home Values in the future.
-- Simply having just bedrooms, bathrooms, and finished area are not enough to predict home values.
+- Recommend running the models to predict quality by keeping the color types of wine split.
+    - This could enable for a more fine tuned model in determining quality.
