@@ -84,11 +84,11 @@
     - Total of 3 Clusters
     - Scaled with StandardScaler
     - Hyperparameters: 
-        - n_estimators = 100
+        - n_estimators = 300
         - max_depth = 6
-        - min_samples_split = 5
-        - min_samples_leaf = 2
-- Random Forest Classifier output train accuracy of .608 and validate accuracy of .556
+        - min_samples_split = 10
+        - min_samples_leaf = 1
+- Random Forest Classifier output train accuracy of .601 and validate accuracy of .556
 - Test Data Ran through the model returned a test accuracy of .562
 
 ### Recommendations
