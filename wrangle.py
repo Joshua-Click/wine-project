@@ -162,22 +162,24 @@ def plot_quality_vs_feature(df, feature):
     # Loop through each column in the DataFrame
     for col in df.columns:
         if col != "quality" and col != "is_red":
-            # Create a line plot of the feature vs quality
-            plt.figure(figsize=(15, 7))
-            sns.lineplot(data=df, x=feature, y=col)
+            try:
+                # Create a line plot of the feature vs quality
+                plt.figure(figsize=(15, 7))
+                sns.lineplot(data=df, x=feature, y=col)
 
-            # Test for significant difference between quality groups using Mann-Whitney U test
-            group1 = df[df[feature] == 3][col]
-            group2 = df[df[feature] == 7][col]
-            stat, p = mannwhitneyu(group1, group2)
+                # Test for significant difference between quality groups using Mann-Whitney U test
+                group1 = df[df["quality_binned"] == "lower"][col]
+                group2 = df[df["quality_binned"] == "upper"][col]
+                stat, p = mannwhitneyu(group1, group2)
 
-            # Add the test result to the plot title
-            plt.title(
-                f"{col} vs {feature} (Mann-Whitney U test: U={stat:.4f}, p={p:.4f})",
-                fontsize=16,
-            )
-
-            plt.show()
+                # Add the test result to the plot title
+                plt.title(
+                    f"{col} vs {feature} (Mann-Whitney U test: U={stat:.4f}, p={p:.4f})",
+                    fontsize=16,
+                )
+                plt.show()
+            except:
+                continue
 
 
 def test_normality_and_variance(df, target="quality"):
@@ -583,9 +585,25 @@ def hyper_tuning(
 def rfc_results(
     X_train, y_train, X_validate, y_validate, scaler_names, n_clusters_list
 ):
+    """
+    This function performs hyperparameter tuning for a random forest classifier (RFC) model
+    using different combinations of scalers and number of clusters for KMeans clustering.
+
+    Parameters:
+    - X_train: pandas DataFrame containing the features for the training set
+    - y_train: pandas Series containing the target variable for the training set
+    - X_validate: pandas DataFrame containing the features for the validation set
+    - y_validate: pandas Series containing the target variable for the validation set
+    - scaler_names: list of strings containing the names of the scalers to be used
+    - n_clusters_list: list of integers containing the number of clusters for KMeans clustering
+
+    Returns:
+    - df: pandas DataFrame containing the results of the hyperparameter tuning
+    """
     results = []
     for scaler_name in scaler_names:
         for n_clusters in n_clusters_list:
+            # Perform hyperparameter tuning for the RFC model
             scores = w.hyper_tuning(
                 X_train,
                 y_train,
@@ -594,9 +612,12 @@ def rfc_results(
                 scaler_name=scaler_name,
                 n_clusters=n_clusters,
             )
+            # Add the scaler name and number of clusters to the scores dictionary
             scores["scaler_name"] = scaler_name
             scores["n_clusters"] = n_clusters
+            # Append the scores dictionary to the results list
             results.append(scores)
+    # Convert the results list to a pandas DataFrame
     df = pd.DataFrame(results)
     return df
 
